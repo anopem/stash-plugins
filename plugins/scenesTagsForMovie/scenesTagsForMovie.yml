@@ -1,0 +1,26 @@
+name: Movie tags from Scenes
+description: More accurately reflect your movie's tags with the tags of the scenes associated with it scenes.
+version: 0.1
+exec:
+  - python
+  - "{pluginDir}/scenesTagsForMovie.py"
+interface: raw
+
+hooks:
+  - name: update scene
+    description: Will tag movie using scene tags if associated with one
+    triggeredBy:
+      - Scene.Update.Post
+      - Scene.Create.Post
+
+settings:
+  appendTags:
+    displayName: append tags
+    description: Whether or not to overwrite old Tags on movie
+    type: BOOLEAN
+
+tasks:
+  - name: 'Update movie Tags'
+    description: Update your movie tags from tags of its scenes'.
+    defaultArgs:
+      mode: processGroupTags
